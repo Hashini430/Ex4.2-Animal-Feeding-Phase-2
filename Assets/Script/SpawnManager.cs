@@ -1,15 +1,19 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    
-   
-    // Start is called before the first frame update
+
+    public GameObject[] animalPrefabs;
+    private float spamRangeX=5;
+    private float spamPosZ=2;
+    private float startDelay=2;
+    private float spamInterval=1.5f;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+        InvokeRepeating("SpawnRandomAnimal",startDelay, spamInterval);
     }
 
     // Update is called once per frame
@@ -17,10 +21,10 @@ public class SpawnManager : MonoBehaviour
     {
         
     }
-
     void SpawnRandomAnimal()
     {
-        
+        int animalIndex = Random.Range(0, animalPrefabs.Length);
+        Vector3 spamPos = new Vector3(Random.Range(-spamRangeX,spamRangeX),0 ,spamPosZ);
+        Instantiate(animalPrefabs[animalIndex],spamPos, animalPrefabs[animalIndex].transform.rotation);
     }
-
 }
